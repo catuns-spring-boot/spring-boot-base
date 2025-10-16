@@ -18,7 +18,10 @@
         <dependency>
             <groupId>xyz.catuns.spring</groupId>
             <artifactId>base-autoconfigure</artifactId>
-            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>xyz.catuns.spring</groupId>
+            <artifactId>base-core</artifactId>
         </dependency>
     </dependencies>
 
