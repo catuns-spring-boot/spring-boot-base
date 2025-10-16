@@ -7,11 +7,11 @@
         <groupId>xyz.catuns.spring</groupId>
         <artifactId>spring-boot-base</artifactId>
         <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>base-dependencies</artifactId>
     <name>Base :: Dependencies</name>
-
     <packaging>pom</packaging>
 
     <properties>
@@ -27,7 +27,6 @@
                 <artifactId>base-starter</artifactId>
                 <version>${revision}</version>
             </dependency>
-
             <dependency>
                 <groupId>xyz.catuns.spring</groupId>
                 <artifactId>base-core</artifactId>
@@ -38,20 +37,20 @@
                 <artifactId>base-constraint</artifactId>
                 <version>${revision}</version>
             </dependency>
-
             <dependency>
                 <groupId>xyz.catuns.spring</groupId>
                 <artifactId>base-autoconfigure</artifactId>
                 <version>${revision}</version>
             </dependency>
 
-            <dependency>
-                <groupId>xyz.catuns.spring</groupId>
-                <artifactId>base-starter-parent</artifactId>
-                <version>${revision}</version>
-            </dependency>
-
             <!-- Spring Framework-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
             <!-- 3rd Party -->
             <dependency>
@@ -59,11 +58,11 @@
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.projectlombok</groupId>-->
+<!--                <artifactId>lombok</artifactId>-->
+<!--                <version>${lombok.version}</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -71,5 +70,18 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <configuration>
+                    <flattenMode>bom</flattenMode>
+                    <updatePomFile>true</updatePomFile>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

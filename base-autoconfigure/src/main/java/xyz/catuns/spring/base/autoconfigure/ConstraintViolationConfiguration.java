@@ -1,5 +1,6 @@
 package xyz.catuns.spring.base.autoconfigure;
 
+import jakarta.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -40,7 +41,7 @@ import java.util.List;
 
 
 @AutoConfiguration
-@ConditionalOnClass({DataIntegrityViolationException.class})
+@ConditionalOnClass({DataIntegrityViolationException.class, ConstraintViolationException.class})
 @ConditionalOnWebApplication
 @ConditionalOnProperty(prefix = "app.exception.constraint", name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(ConstraintViolationProperties.class)

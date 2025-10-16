@@ -5,12 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>xyz.catuns.spring</groupId>
-        <artifactId>base-dependencies</artifactId>
+        <artifactId>spring-boot-base</artifactId>
         <version>${revision}</version>
-        <relativePath>../base-dependencies/pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>base-starter-parent</artifactId>
+    <version>${revision}</version>
     <name>Base :: Starter Parent</name>
     <packaging>pom</packaging>
 
@@ -18,33 +19,50 @@
         <google.jib.version>3.3.2</google.jib.version>
         <google.jib.base.image>eclipse-temurin:21-jre-alpine</google.jib.base.image>
         <spring-doc.version>2.8.13</spring-doc.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>xyz.catuns.spring</groupId>
+                <artifactId>base-dependencies</artifactId>
+                <version>${revision}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${spring-doc.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
         <dependency>
             <groupId>xyz.catuns.spring</groupId>
             <artifactId>base-starter</artifactId>
             <version>${revision}</version>
+            <type>pom</type>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
         </dependency>
     </dependencies>
-
-    <dependencyManagement>
-        <dependencies>
-            <!-- Starters -->
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <build>
         <plugins>
@@ -89,10 +107,21 @@
                             <version>${spring-boot.version}</version>  <!-- Add explicit version -->
                         </path>
                     </annotationProcessorPaths>
+                    <compilerArgs>
+                        <arg>-Amapstruct.defaultComponentModel=spring</arg>
+                        <arg>-Amapstruct.unmappedTargetPolicy=WARN</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <configuration>
+                    <flattenMode>bom</flattenMode>
+                    <updatePomFile>true</updatePomFile>
                 </configuration>
             </plugin>
         </plugins>
-
         <pluginManagement>
             <plugins>
                 <plugin>

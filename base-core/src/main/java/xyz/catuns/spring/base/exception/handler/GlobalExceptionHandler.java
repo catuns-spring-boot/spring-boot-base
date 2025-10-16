@@ -122,35 +122,4 @@ public class GlobalExceptionHandler {
         return problemDetail;
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ProblemDetail handleConstraintViolation(
-            ConstraintViolationException ex,
-            HttpServletRequest request
-    ) {
-
-        if (properties.isLogExceptions()) {
-            log.warn("Constraint violation at {}", request.getRequestURI());
-        }
-
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                HttpStatus.BAD_REQUEST,
-                "Constraint violation"
-        );
-
-        problemDetail.setTitle("Bad Request");
-        problemDetail.setInstance(URI.create(request.getRequestURI()));
-        problemDetail.setProperty("timestamp", Instant.now());
-
-        if (properties.isIncludeBindingErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            ex.getConstraintViolations().forEach(violation -> {
-                String propertyPath = violation.getPropertyPath().toString();
-                errors.put(propertyPath, violation.getMessage());
-            });
-            problemDetail.setProperty("errors", errors);
-        }
-
-        return problemDetail;
-    }
 }

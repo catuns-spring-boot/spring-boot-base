@@ -7,7 +7,9 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.5.6</version>
+        <relativePath/>
     </parent>
+
 
     <groupId>xyz.catuns.spring</groupId>
     <artifactId>spring-boot-base</artifactId>
@@ -27,6 +29,7 @@
             <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
+
     <modules>
         <module>base-dependencies</module>
         <module>base-core</module>
@@ -35,18 +38,19 @@
         <module>base-starter</module>
         <module>base-starter-parent</module>
     </modules>
+
     <properties>
         <revision>1.0.0-SNAPSHOT</revision>
-        <spring-boot.version>${project.parent.version}</spring-boot.version>
+        <spring-boot.version>3.5.6</spring-boot.version>
         <git.url>https://github.com/catuns-spring-boot/spring-boot-base</git.url>
         <git.connection>scm:git:https://github.com/catuns-spring-boot/spring-boot-base</git.connection>
         <git.developerConnection>scm:git:ssh://git@github.com/catuns-spring-boot/spring-boot-base.git
         </git.developerConnection>
-        <main.basedir>${basedir}</main.basedir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>21</java.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
+        <flatten-maven-plugin.version>1.7.0</flatten-maven-plugin.version>
     </properties>
 
     <scm>
@@ -72,15 +76,25 @@
         </repository>
     </distributionManagement>
 
+
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>flatten-maven-plugin</artifactId>
+                    <version>1.7.1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.7.0</version>
+                <version>1.7.1</version>
                 <configuration>
                     <updatePomFile>true</updatePomFile>
-                    <flattenMode>bom</flattenMode>
+                    <flattenMode>oss</flattenMode>
                 </configuration>
                 <executions>
                     <execution>
