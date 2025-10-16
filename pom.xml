@@ -3,12 +3,17 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.6</version>
+    </parent>
 
     <groupId>xyz.catuns.spring</groupId>
     <artifactId>spring-boot-base</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
-    <name>Spring boot Base</name>
+    <name>Base</name>
     <description>Spring boot Base libraries</description>
 
     <url>https://github.com/catuns-spring-boot/spring-boot-base</url>
@@ -22,14 +27,23 @@
             <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
+    <modules>
+        <module>base-dependencies</module>
+        <module>base-core</module>
+        <module>base-autoconfigure</module>
+        <module>base-starter</module>
+        <module>base-starter-parent</module>
+    </modules>
     <properties>
         <revision>1.0.0-SNAPSHOT</revision>
+        <spring-boot.version>${project.parent.version}</spring-boot.version>
         <git.url>https://github.com/catuns-spring-boot/spring-boot-base</git.url>
         <git.connection>scm:git:https://github.com/catuns-spring-boot/spring-boot-base</git.connection>
         <git.developerConnection>scm:git:ssh://git@github.com/catuns-spring-boot/spring-boot-base.git
         </git.developerConnection>
         <main.basedir>${basedir}</main.basedir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>21</java.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
     </properties>
