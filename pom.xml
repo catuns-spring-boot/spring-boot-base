@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>xyz.catuns.spring</groupId>
+    <artifactId>spring-boot-base</artifactId>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+    <name>Spring boot Base</name>
+    <description>Spring boot Base libraries</description>
+
+    <url>https://github.com/catuns-spring-boot/spring-boot-base</url>
+    <organization>
+        <name>DCAT Technologies.</name>
+        <url>https://www.catuns.xyz</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+    <properties>
+        <revision>1.0.0-SNAPSHOT</revision>
+        <git.url>https://github.com/catuns-spring-boot/spring-boot-base</git.url>
+        <git.connection>scm:git:https://github.com/catuns-spring-boot/spring-boot-base</git.connection>
+        <git.developerConnection>scm:git:ssh://git@github.com/catuns-spring-boot/spring-boot-base.git
+        </git.developerConnection>
+        <main.basedir>${basedir}</main.basedir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+    </properties>
+
+    <scm>
+        <url>${git.url}</url>
+        <connection>${git.connection}</connection>
+        <developerConnection>${git.developerConnection}</developerConnection>
+    </scm>
+    <developers>
+        <developer>
+            <name>Devin</name>
+            <email>ask@catuns.xyz</email>
+            <organization>DCAT Technologies.</organization>
+            <organizationUrl>https://www.catuns.xyz</organizationUrl>
+        </developer>
+    </developers>
+
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>Devin Catuns' Spring Boot Maven Packages</name>
+            <url>https://maven.pkg.github.com/catuns-spring-boot/spring-boot-base</url>
+        </repository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.7.0</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>bom</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.1.4</version>
+                <inherited>false</inherited>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.5.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>3.1.4</version>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
