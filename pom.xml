@@ -30,6 +30,7 @@
     <modules>
         <module>base-dependencies</module>
         <module>base-core</module>
+        <module>base-constraint</module>
         <module>base-autoconfigure</module>
         <module>base-starter</module>
         <module>base-starter-parent</module>
