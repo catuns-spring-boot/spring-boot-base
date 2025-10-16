@@ -1,0 +1,2 @@
+xyz.catuns.spring.base.autoconfigure.BaseAutoConfiguration
+xyz.catuns.spring.base.autoconfigure.ExceptionHandlerAutoConfiguration

@@ -11,7 +11,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 1.0.0
  */
 @Data
-@ConfigurationProperties(prefix = "starter.base.exception")
+@ConfigurationProperties(prefix = "app.exception")
 public class ExceptionHandlerProperties {
 
     /**
