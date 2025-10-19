@@ -176,7 +176,7 @@
 
     <distributionManagement>
         <repository>
-            <id>github-packages</id>
+            <id>base-starter</id>
             <name>Devin Catuns' Spring Boot Maven Packages</name>
             <url>https://maven.pkg.github.com/catuns-spring-boot/spring-boot-base</url>
         </repository>
