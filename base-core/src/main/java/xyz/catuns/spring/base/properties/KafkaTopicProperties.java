@@ -10,6 +10,7 @@ import java.util.Map;
  * @author Devin Catuns
  * @since 1.0.0
  */
+@Data
 public class KafkaTopicProperties {
     /**
      * Map key to value topic name
