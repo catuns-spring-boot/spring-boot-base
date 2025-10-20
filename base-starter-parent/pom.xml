@@ -50,7 +50,6 @@
             <groupId>xyz.catuns.spring</groupId>
             <artifactId>base-starter</artifactId>
             <version>${base.starter.version}</version>
-            <type>pom</type>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

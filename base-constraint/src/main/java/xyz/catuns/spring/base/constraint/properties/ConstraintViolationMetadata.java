@@ -1,7 +1,6 @@
 package xyz.catuns.spring.base.constraint.properties;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * Configuration properties for constraint violation handling.
@@ -13,18 +12,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 1.0.0
  */
 @Data
-@ConfigurationProperties(prefix = "app.exception.constraint")
-public class ConstraintViolationProperties {
+public class ConstraintViolationMetadata {
 
-    /**
-     * Enable or disable the constraint violation handler.
-     * <p>
-     * When disabled, no constraint violation beans will be registered and
-     * exceptions will fall back to default Spring Boot error handling.
-     * <p>
-     * Default: {@code true}
-     */
-    private boolean enabled = true;
 
     /**
      * Expose technical details in problem detail responses.
@@ -38,7 +27,7 @@ public class ConstraintViolationProperties {
      * @deprecated Use logging instead of exposing technical details to clients.
      * This will be removed in version 2.0.0.
      */
-    @Deprecated(since = "0.0.", forRemoval = true)
+    @Deprecated(since = "0.0.1", forRemoval = true)
     private boolean exposeTechnicalDetails = false;
 
     /**

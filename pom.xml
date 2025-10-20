@@ -70,8 +70,8 @@
 
     <distributionManagement>
         <repository>
-            <id>github-packages</id>
-            <name>Devin Catuns' Spring Boot Maven Packages</name>
+            <id>base-starter</id>
+            <name>Devin Catuns' Spring Boot Base Starter</name>
             <url>https://maven.pkg.github.com/catuns-spring-boot/spring-boot-base</url>
         </repository>
     </distributionManagement>

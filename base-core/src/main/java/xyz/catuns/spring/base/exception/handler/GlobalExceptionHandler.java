@@ -1,7 +1,6 @@
 package xyz.catuns.spring.base.exception.handler;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import xyz.catuns.spring.base.exception.controller.ControllerException;
-import xyz.catuns.spring.base.properties.ExceptionHandlerProperties;
+import xyz.catuns.spring.base.properties.ExceptionHandlerMetadata;
 
 import java.net.URI;
 import java.time.Instant;
@@ -28,7 +27,7 @@ public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    private final ExceptionHandlerProperties properties;
+    private final ExceptionHandlerMetadata properties;
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ProblemDetail> genericExceptionHandler(
