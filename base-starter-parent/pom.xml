@@ -22,12 +22,11 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <spring-boot.version>3.5.6</spring-boot.version>
-        <google.jib.version>3.3.2</google.jib.version>
-        <google.jib.base.image>eclipse-temurin:21-jre-alpine</google.jib.base.image>
         <spring-doc.version>2.8.13</spring-doc.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <base.starter.version>${revision}</base.starter.version>
         <module.image.name>${project.artifactId}:${project.version}</module.image.name>
+        <spring-boot.build-image.name>{module.image.name}</spring-boot.build-image.name>
     </properties>
 
     <dependencyManagement>
@@ -108,10 +107,6 @@
                             <version>${spring-boot.version}</version>  <!-- Add explicit version -->
                         </path>
                     </annotationProcessorPaths>
-                    <compilerArgs>
-                        <arg>-Amapstruct.defaultComponentModel=spring</arg>
-                        <arg>-Amapstruct.unmappedTargetPolicy=WARN</arg>
-                    </compilerArgs>
                 </configuration>
             </plugin>
         </plugins>
@@ -128,7 +123,6 @@
                                 <artifactId>lombok</artifactId>
                             </exclude>
                         </excludes>
-                        <imageName>${module.image.name}</imageName>
                     </configuration>
                     <executions>
                         <execution>
@@ -170,10 +164,15 @@
 
     <distributionManagement>
         <repository>
-            <id>base-starter</id>
-            <name>Devin Catuns' Spring Boot Maven Packages</name>
-            <url>https://maven.pkg.github.com/catuns-spring-boot/spring-boot-base</url>
+            <id>repolite-releases</id>
+            <name>Catuns RepoLite releases</name>
+            <url>https://repolite.catuns.xyz/releases</url>
         </repository>
+        <snapshotRepository>
+            <id>repolite-snapshots</id>
+            <name>Catuns RepoLite</name>
+            <url>https://repolite.catuns.xyz/snapshots</url>
+        </snapshotRepository>
     </distributionManagement>
 
 
