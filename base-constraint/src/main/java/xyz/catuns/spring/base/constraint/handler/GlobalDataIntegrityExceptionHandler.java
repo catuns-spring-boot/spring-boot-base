@@ -8,7 +8,7 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import xyz.catuns.spring.base.constraint.properties.ConstraintViolationProperties;
+import xyz.catuns.spring.base.constraint.properties.ConstraintViolationMetadata;
 import xyz.catuns.spring.base.constraint.parser.ConstraintViolationInfo;
 import xyz.catuns.spring.base.constraint.parser.ConstraintViolationParser;
 
@@ -23,7 +23,7 @@ public class GlobalDataIntegrityExceptionHandler {
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(GlobalDataIntegrityExceptionHandler.class);
 
     private final ConstraintViolationParser parser;
-    private final ConstraintViolationProperties properties;
+    private final ConstraintViolationMetadata properties;
 
 
     @ExceptionHandler(DataIntegrityViolationException.class)

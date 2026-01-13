@@ -40,7 +40,7 @@
     </modules>
 
     <properties>
-        <revision>1.0.1-SNAPSHOT</revision>
+        <revision>1.0.3-SNAPSHOT</revision>
         <spring-boot.version>3.5.6</spring-boot.version>
         <git.url>https://github.com/catuns-spring-boot/spring-boot-base</git.url>
         <git.connection>scm:git:https://github.com/catuns-spring-boot/spring-boot-base</git.connection>
@@ -70,8 +70,8 @@
 
     <distributionManagement>
         <repository>
-            <id>github-packages</id>
-            <name>Devin Catuns' Spring Boot Maven Packages</name>
+            <id>base-starter</id>
+            <name>Devin Catuns' Spring Boot Base Starter</name>
             <url>https://maven.pkg.github.com/catuns-spring-boot/spring-boot-base</url>
         </repository>
     </distributionManagement>

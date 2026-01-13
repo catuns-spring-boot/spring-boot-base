@@ -1,19 +1,21 @@
 package xyz.catuns.spring.base.exception.handler;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
+import org.springframework.web.ErrorResponseException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import xyz.catuns.spring.base.exception.controller.ControllerException;
-import xyz.catuns.spring.base.properties.ExceptionHandlerProperties;
+import xyz.catuns.spring.base.properties.ExceptionHandlerMetadata;
 
 import java.net.URI;
 import java.time.Instant;
@@ -28,7 +30,7 @@ public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    private final ExceptionHandlerProperties properties;
+    private final ExceptionHandlerMetadata properties;
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ProblemDetail> genericExceptionHandler(
@@ -75,20 +77,12 @@ public class GlobalExceptionHandler {
             log.warn("Controller exception at {}: {}", request.getRequestURI(), e.getMessage());
         }
 
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                e.getHttpStatus(),
-                e.getMessage()
-        );
-
-        problemDetail.setInstance(URI.create(request.getRequestURI()));
-        problemDetail.setProperty("timestamp", Instant.now());
-        problemDetail.setTitle(e.getTitle());
-
+        e.setInstance(URI.create(request.getRequestURI()));
         return ResponseEntity
-                .status(e.getHttpStatus())
-                .body(problemDetail);
+                .status(e.getStatusCode())
+                .headers(e.getHeaders())
+                .body(e.getBody());
     }
-
 
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -102,14 +96,8 @@ public class GlobalExceptionHandler {
             log.warn("Validation failed at {}", request.getRequestURI());
         }
 
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                HttpStatus.BAD_REQUEST,
-                "Validation failed for one or more fields"
-        );
-
-        problemDetail.setTitle("Bad Request");
+        ProblemDetail problemDetail = ex.getBody();
         problemDetail.setInstance(URI.create(request.getRequestURI()));
-        problemDetail.setProperty("timestamp", Instant.now());
 
         if (properties.isIncludeBindingErrors()) {
             Map<String, String> errors = new HashMap<>();

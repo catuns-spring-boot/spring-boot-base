@@ -1,32 +1,18 @@
 package xyz.catuns.spring.base.properties;
 
+import lombok.Data;
+
 import java.time.Duration;
 
+@Data
 public class CacheProperties {
+    /*
+     * Cache Name
+     */
     private String name;
+
+    /*
+     * Cache Time to live
+     */
     private Duration ttl;
-
-    public CacheProperties(String name, Duration ttl) {
-        this.name = name;
-        this.ttl = ttl;
-    }
-
-    public CacheProperties() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Duration getTtl() {
-        return ttl;
-    }
-
-    public void setTtl(Duration ttl) {
-        this.ttl = ttl;
-    }
 }

@@ -1,7 +1,6 @@
 package xyz.catuns.spring.base.properties;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * Configuration properties for global exception handling.
@@ -11,14 +10,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 1.0.0
  */
 @Data
-@ConfigurationProperties(prefix = "app.exception")
-public class ExceptionHandlerProperties {
+public class ExceptionHandlerMetadata {
 
-    /**
-     * Enable or disable global exception handler
-     *
-     */
-    private boolean enabled = true;
 
     /**
      * Include stack trace in error responses (dev only)

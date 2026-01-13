@@ -12,10 +12,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.dao.DataIntegrityViolationException;
 import xyz.catuns.spring.base.autoconfigure.condition.*;
+import xyz.catuns.spring.base.autoconfigure.properties.ConstraintViolationProperties;
 import xyz.catuns.spring.base.constraint.handler.GlobalDataIntegrityExceptionHandler;
 import xyz.catuns.spring.base.constraint.parser.ConstraintViolationParser;
 import xyz.catuns.spring.base.constraint.parser.ConstraintViolationStrategy;
-import xyz.catuns.spring.base.constraint.properties.ConstraintViolationProperties;
+import xyz.catuns.spring.base.constraint.properties.ConstraintViolationMetadata;
 import xyz.catuns.spring.base.constraint.strategy.generic.GenericStrategy;
 import xyz.catuns.spring.base.constraint.strategy.h2.H2ForeignKeyStrategy;
 import xyz.catuns.spring.base.constraint.strategy.h2.H2NotNullStrategy;
@@ -41,10 +42,10 @@ import java.util.List;
 
 
 @AutoConfiguration
-@ConditionalOnClass({DataIntegrityViolationException.class, ConstraintViolationException.class})
-@ConditionalOnWebApplication
-@ConditionalOnProperty(prefix = "app.exception.constraint", name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(ConstraintViolationProperties.class)
+@ConditionalOnClass({DataIntegrityViolationException.class, ConstraintViolationException.class})
+@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)  // Only for servlet web apps
+@ConditionalOnProperty(prefix = "app.exception.constraint", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class ConstraintViolationConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(ConstraintViolationConfiguration.class);
@@ -229,7 +230,7 @@ public class ConstraintViolationConfiguration {
     @ConditionalOnMissingBean
     public GlobalDataIntegrityExceptionHandler globalDataIntegrityExceptionHandler(
             ConstraintViolationParser parser,
-            ConstraintViolationProperties properties
+            ConstraintViolationMetadata properties
     ) {
         log.info("Registering Global Data Integrity Exception Handler");
         return new GlobalDataIntegrityExceptionHandler(parser, properties);
