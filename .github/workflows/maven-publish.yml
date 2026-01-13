@@ -1,5 +1,5 @@
-# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
-# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
+# This workflow will build a package using Maven and then publish it to Repolite repository
+# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md
 
 name: Maven Package
 
@@ -15,7 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write
 
     steps:
     - uses: actions/checkout@v4
@@ -24,16 +23,41 @@ jobs:
       with:
         java-version: '21'
         distribution: 'temurin'
-        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
-        settings-path: ${{ github.workspace }} # location for the settings.xml file
+
+    - name: Create settings.xml for Repolite
+      run: |
+        mkdir -p ~/.m2
+        cat > ~/.m2/settings.xml << 'EOF'
+        <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                                      https://maven.apache.org/xsd/settings-1.0.0.xsd">
+          <servers>
+            <server>
+              <id>repolite-releases</id>
+              <username>${env.REPOLITE_USERNAME}</username>
+              <password>${env.REPOLITE_PASSWORD}</password>
+            </server>
+            <server>
+              <id>repolite-snapshots</id>
+              <username>${env.REPOLITE_USERNAME}</username>
+              <password>${env.REPOLITE_PASSWORD}</password>
+            </server>
+          </servers>
+        </settings>
+        EOF
+      env:
+        REPOLITE_USERNAME: ${{ secrets.REPOLITE_USERNAME }}
+        REPOLITE_PASSWORD: ${{ secrets.REPOLITE_PASSWORD }}
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
-    - name: Publish to GitHub Packages Apache Maven
-      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
+    - name: Deploy to Repolite Repository
+      run: mvn deploy
       env:
-        GITHUB_TOKEN: ${{ github.token }}
+        REPOLITE_USERNAME: ${{ secrets.REPOLITE_USERNAME }}
+        REPOLITE_PASSWORD: ${{ secrets.REPOLITE_PASSWORD }}
 
     - name: Send Discord notification
       uses: ./.github/actions/send-discord-notification
@@ -41,4 +65,4 @@ jobs:
       with:
         webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
         status: ${{ job.status }}
-        run-name: ${{ format('start.spring.io (GCP Cloud Run) | {0}', github.ref_name) }}
+        run-name: ${{ format('spring-boot-base | {0}', github.ref_name) }}
