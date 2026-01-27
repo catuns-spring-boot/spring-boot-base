@@ -164,16 +164,29 @@
 
     <distributionManagement>
         <repository>
-            <id>repolite-releases</id>
-            <name>Catuns RepoLite releases</name>
-            <url>https://repolite.catuns.xyz/releases</url>
+            <id>base-starter</id>
+            <name>Devin Catuns' Spring Boot Maven Packages</name>
+            <url>https://maven.pkg.github.com/catuns-spring-boot/spring-boot-base</url>
         </repository>
-        <snapshotRepository>
-            <id>repolite-snapshots</id>
-            <name>Catuns RepoLite</name>
-            <url>https://repolite.catuns.xyz/snapshots</url>
-        </snapshotRepository>
     </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>repolite</id>
+            <distributionManagement>
+                <repository>
+                    <id>repolite-releases</id>
+                    <name>Catuns RepoLite releases</name>
+                    <url>https://repolite.catuns.xyz/releases</url>
+                </repository>
+                <snapshotRepository>
+                    <id>repolite-snapshots</id>
+                    <name>Catuns RepoLite</name>
+                    <url>https://repolite.catuns.xyz/snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+    </profiles>
 
 
 </project>
