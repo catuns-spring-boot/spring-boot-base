@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.6</version>
+        <version>3.5.13</version>
         <relativePath/>
     </parent>
 
@@ -40,8 +40,8 @@
     </modules>
 
     <properties>
-        <revision>1.0.3-SNAPSHOT</revision>
-        <spring-boot.version>3.5.6</spring-boot.version>
+        <revision>1.0.4-SNAPSHOT</revision>
+        <spring-boot.version>3.5.13</spring-boot.version>
         <git.url>https://github.com/catuns-spring-boot/spring-boot-base</git.url>
         <git.connection>scm:git:https://github.com/catuns-spring-boot/spring-boot-base</git.connection>
         <git.developerConnection>scm:git:ssh://git@github.com/catuns-spring-boot/spring-boot-base.git
@@ -74,7 +74,6 @@
             <url>https://maven.pkg.github.com/catuns-spring-boot/spring-boot-base</url>
         </repository>
     </distributionManagement>
-
 
     <build>
         <pluginManagement>
