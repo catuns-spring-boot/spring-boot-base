@@ -26,7 +26,7 @@
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <base.starter.version>${revision}</base.starter.version>
         <image.name>${project.artifactId}:${project.version}</image.name>
-        <spring-boot.build-image.name>{image.name}</spring-boot.build-image.name>
+        <spring-boot.build-image.name>${image.name}</spring-boot.build-image.name>
         <google.jib.base.image>eclipse-temurin:${java.version}-jre</google.jib.base.image>
     </properties>
 
@@ -80,12 +80,13 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
                 <version>1.7.1</version>
+                <!-- Only flatten this POM; consuming projects must not inherit the flatten plugin -->
+                <inherited>false</inherited>
                 <configuration>
                     <updatePomFile>true</updatePomFile>
-                    <flattenMode>bom</flattenMode>
-                    <pomElements>
-                        <build>keep</build>
-                    </pomElements>
+                    <!-- Resolve the CI-friendly version only; keep <parent> so consumers inherit
+                         spring-boot-starter-parent (repackage, etc.) -->
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
                 </configuration>
                 <executions>
                     <execution>
